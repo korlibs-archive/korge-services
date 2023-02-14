@@ -22,7 +22,8 @@ var Views.language: Language?
 
 typealias TextProvider = (language: Language?) -> String
 
-fun Text.textProvider(get: TextProvider) {
+fun <T : Text> T.textProvider(get: TextProvider): T {
     this.setExtra(I18N_TEXT_PROVIDER, get)
     text = get(stage?.views?.language)
+    return this
 }
