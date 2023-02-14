@@ -1,0 +1,28 @@
+package korge.i18n
+
+import com.soywiz.kds.*
+import com.soywiz.korge.view.*
+import com.soywiz.korio.util.i18n.*
+
+private var Views._language: Language? by extraProperty { null }
+
+private val I18N_TEXT_PROVIDER = "textProvider"
+
+var Views.language: Language?
+    get() = _language
+    set(value) {
+        if (_language == value) return
+        _language = value
+        this.stage.foreachDescendant { view ->
+            view.getExtraTyped<TextProvider>(I18N_TEXT_PROVIDER)?.let {
+                (view as IText).text = it.invoke(_language)
+            }
+        }
+    }
+
+typealias TextProvider = (language: Language?) -> String
+
+fun Text.textProvider(get: TextProvider) {
+    this.setExtra(I18N_TEXT_PROVIDER, get)
+    text = get(stage?.views?.language)
+}
