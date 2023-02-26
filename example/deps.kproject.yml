@@ -1,4 +1,5 @@
 #name: deps
 dependencies:
     - ../korge-i18n
-
+    - ../korio-bus
+    - ../korma-astar
