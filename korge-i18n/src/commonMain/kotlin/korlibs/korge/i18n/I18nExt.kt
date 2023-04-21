@@ -1,8 +1,8 @@
-package korge.i18n
+package korlibs.korge.i18n
 
-import com.soywiz.kds.*
-import com.soywiz.korge.view.*
-import com.soywiz.korio.util.i18n.*
+import korlibs.datastructure.*
+import korlibs.korge.view.*
+import korlibs.io.util.i18n.*
 
 private var Views._language: Language? by extraProperty { null }
 

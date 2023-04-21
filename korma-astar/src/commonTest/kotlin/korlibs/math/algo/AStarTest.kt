@@ -1,9 +1,9 @@
-package com.soywiz.korma.algo
+package korlibs.math.algo
 
-import com.soywiz.kds.BooleanArray2
-import com.soywiz.kds.map2
-import com.soywiz.korma.annotations.*
-import com.soywiz.korma.geom.*
+import korlibs.datastructure.BooleanArray2
+import korlibs.datastructure.map2
+import korlibs.math.annotations.*
+import korlibs.math.geom.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -67,8 +67,8 @@ class AStarTest {
 
 
     data class Result(val map: BooleanArray2, @KormaMutableApi val mstart: MPointInt, @KormaMutableApi val mend: MPointInt) {
-        @KormaValueApi val start: PointInt get() = mstart.point
-        @KormaValueApi val end: PointInt get() = mend.point
+        val start: PointInt get() = mstart.point
+        val end: PointInt get() = mend.point
     }
 
     fun map(str: String): Result {
@@ -111,7 +111,7 @@ class AStarTest {
         val pointsMap = points.toPoints().withIndex().map { it.value to it.index }.toMap()
         val res = input2.map.map2 { x, y, c ->
             //pointsMap[PointInt(x, y)]?.let { xdigits[it] } ?: (if (c) '#' else '.') // @TODO: Kotlin-native: Regression Crashes BUG in runtime - https://github.com/JetBrains/kotlin-native/issues/1736
-            (pointsMap[MPointInt(x, y)]?.let { "" + xdigits[it] } ?: (if (c) "#" else ".")).first()
+            (pointsMap[PointInt(x, y)]?.let { "" + xdigits[it] } ?: (if (c) "#" else ".")).first()
         }
         val output = res.asString { it }
         assertEquals(expected.trimIndent(), output)

@@ -1,9 +1,9 @@
-import com.soywiz.korge.*
-import com.soywiz.korge.scene.*
-import com.soywiz.korge.ui.*
-import com.soywiz.korge.view.*
-import com.soywiz.korio.util.i18n.*
-import korge.i18n.*
+import korlibs.korge.*
+import korlibs.korge.scene.*
+import korlibs.korge.ui.*
+import korlibs.korge.view.*
+import korlibs.io.util.i18n.*
+import korlibs.korge.i18n.*
 
 suspend fun main() = Korge {
     sceneContainer().changeTo({ MainMyModuleScene() })
@@ -20,7 +20,7 @@ class MainMyModuleScene : Scene() {
             text("").textProvider {
                 when (it) {
                     Language.SPANISH -> "¡Hola Mundo!"
-                    Language.ENGLISH -> "Hello World!"
+                    Language.ENGLISH -> "Hello world!"
                     else -> "Unknown"
                 }
             }

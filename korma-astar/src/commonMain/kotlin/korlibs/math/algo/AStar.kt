@@ -1,10 +1,10 @@
-package com.soywiz.korma.algo
+package korlibs.math.algo
 
-import com.soywiz.kds.BooleanArray2
-import com.soywiz.kds.IntPriorityQueue
-import com.soywiz.korma.geom.IPointIntArrayList
-import com.soywiz.korma.geom.MPoint
-import com.soywiz.korma.geom.PointIntArrayList
+import korlibs.datastructure.BooleanArray2
+import korlibs.datastructure.IntPriorityQueue
+import korlibs.math.geom.Point
+import korlibs.math.geom.PointIntArrayList
+import korlibs.math.geom.PointIntList
 
 class AStar(val width: Int, val height: Int, val isBlocking: (x: Int, y: Int) -> Boolean) {
     companion object {
@@ -12,10 +12,10 @@ class AStar(val width: Int, val height: Int, val isBlocking: (x: Int, y: Int) ->
         fun find(
             board: BooleanArray2, x0: Int, y0: Int, x1: Int, y1: Int, findClosest: Boolean = false,
             diagonals: Boolean = false
-        ): IPointIntArrayList = AStar(board.width, board.height) { x, y -> board[x, y] }.find(x0, y0, x1, y1, findClosest, diagonals)
+        ): PointIntList = AStar(board.width, board.height) { x, y -> board[x, y] }.find(x0, y0, x1, y1, findClosest, diagonals)
     }
 
-    fun find(x0: Int, y0: Int, x1: Int, y1: Int, findClosest: Boolean = false, diagonals: Boolean = false): IPointIntArrayList {
+    fun find(x0: Int, y0: Int, x1: Int, y1: Int, findClosest: Boolean = false, diagonals: Boolean = false): PointIntList {
         val out = PointIntArrayList()
         find(x0, y0, x1, y1, findClosest, diagonals) { x, y -> out.add(x, y) }
         out.reverse()
@@ -31,7 +31,7 @@ class AStar(val width: Int, val height: Int, val isBlocking: (x: Int, y: Int) ->
         val first = getNode(x0, y0)
         val dest = getNode(x1, y1)
         var closest = first
-        var closestDist = MPoint.distance(x0, y0, x1, y1)
+        var closestDist = Point.distance(x0, y0, x1, y1)
         if (!first.value) {
             queue.add(first.index)
             first.weight = 0
@@ -39,7 +39,7 @@ class AStar(val width: Int, val height: Int, val isBlocking: (x: Int, y: Int) ->
 
         while (queue.isNotEmpty()) {
             val last = AStarNode(queue.removeHead())
-            val dist = MPoint.distance(last.posX, last.posY, dest.posX, dest.posY)
+            val dist = Point.distance(last.posX, last.posY, dest.posX, dest.posY)
             if (dist < closestDist) {
                 closestDist = dist
                 closest = last
